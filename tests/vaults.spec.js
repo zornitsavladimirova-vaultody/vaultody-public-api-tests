@@ -1,6 +1,10 @@
 const { test, expect } = require('@playwright/test');
 const { generateHeaders, CONFIG } = require('../auth/auth.js');
 
+test.beforeEach(async () => {
+  await new Promise(resolve => setTimeout(resolve, 1000));
+});
+
 test.describe('Vaults API - GET /vaults/test', () => {
 
   test('should return status 200', async ({ request }) => {
@@ -68,7 +72,8 @@ test.describe('Vaults API - GET /vaults/test', () => {
     expect(body.data.limit).toBe(50);
   });
 
-  test('should return correct number of items when limit is set to 2', async ({ request }) => {
+test('should return correct number of items when limit is set to 2', async ({ request }) => {
+    await new Promise(resolve => setTimeout(resolve, 2000));
     const path = '/vaults/test';
     const queryParams = { limit: '2' };
     const headers = generateHeaders('GET', path, {}, queryParams);

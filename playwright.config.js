@@ -12,5 +12,8 @@ module.exports = defineConfig({
       use: {},
     }
   ],
+  // Пауза между тестовете за да не hit-ваме rate limit
+  reporter: 'list',
+  workers: 1,
 });
 

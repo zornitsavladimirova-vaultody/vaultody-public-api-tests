@@ -1,10 +1,13 @@
+require('dotenv').config();
+
 const crypto = require('crypto');
 
+
 const CONFIG = {
-  apiKey: 'a69517030e2c394f2e30a868bb3ea758b53f54a5',
-  apiPassphrase: 'Adminn!1',
-  apiSecret: 'dx0UEvVatMNesA==',
-  baseUrl: 'https://rest.qa-01.vaultody.com'
+  apiKey: process.env.API_KEY,
+  apiPassphrase: process.env.API_PASSPHRASE,
+  apiSecret: process.env.API_SECRET,
+  baseUrl: process.env.BASE_URL
 };
 
 function generateHeaders(method, path, body = {}, queryParams = {}) {
