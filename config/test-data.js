@@ -1,6 +1,6 @@
 const testData = {
     vaults: {
-        testVaultId: '69e2229d96c8640007743e6c',
+        testVaultId: '69e62e6d859b6c00073fa8be',
     },
     assets: {
         bitcoin: {
