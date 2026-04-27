@@ -2,6 +2,8 @@ const endpoints = {
   vaults: {
     listTest: '/vaults/test',
     listMain: '/vaults/main',
+    listByAssetId: (assetId, blockchain, networkType) => `/assets/${assetId}/${blockchain}/vaults/${networkType}`,
+    listAssetsByVault: (vaultId) => `/vaults/${vaultId}/assets`,
   },
   vaultAccounts: {
     create: '/vault-accounts',
