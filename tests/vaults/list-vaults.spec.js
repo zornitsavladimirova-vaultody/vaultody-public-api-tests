@@ -1,6 +1,6 @@
 const { test, expect } = require('@playwright/test');
-const { generateHeaders, CONFIG } = require('../auth/auth.js');
-const endpoints = require('../config/endpoints.js');
+const { generateHeaders, CONFIG } = require('../../auth/auth.js');
+const endpoints = require('../../config/endpoints.js');
 
 let response;
 let body;
