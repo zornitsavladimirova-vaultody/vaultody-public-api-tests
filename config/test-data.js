@@ -1,6 +1,8 @@
 const testData = {
     vaults: {
         testVaultId: '69e62e6d859b6c00073fa8be',
+        createVaultAccountVaultId: '69e5ed7c859b6c00073fa8ba', // Mobile 2 -  backuped: true
+        notBackupedVaultId: '69e5ef5a859b6c00073fa8bb', // Mobile 3 - backuped: false
     },
     assets: {
         bitcoin: {

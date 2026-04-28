@@ -4,12 +4,13 @@ const endpoints = {
     listMain: '/vaults/main',
     listByAssetId: (assetId, blockchain, networkType) => `/assets/${assetId}/${blockchain}/vaults/${networkType}`,
     listAssetsByVault: (vaultId) => `/vaults/${vaultId}/assets`,
+    listTransactionsByVault: (vaultId) => `/vaults/${vaultId}/transactions`,
   },
   vaultAccounts: {
-    create: '/vault-accounts',
-    list: '/vault-accounts',
-    getById: (id) => `/vault-accounts/${id}`,
-    update: (id) => `/vault-accounts/${id}`,
+    create: (vaultId) => `/vaults/${vaultId}/vault-account`,
+    list: (vaultId) => `/vaults/${vaultId}/vault-accounts`,
+    getById: (vaultId, vaultAccountId) => `/vaults/${vaultId}/vault-accounts/${vaultAccountId}`,
+    update: (vaultId, vaultAccountId) => `/vaults/${vaultId}/vault-accounts/${vaultAccountId}`,
   },
   assets: {
     listSupported: '/assets',

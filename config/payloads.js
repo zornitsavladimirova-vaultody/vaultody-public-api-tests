@@ -1,22 +1,15 @@
-// const payloads = {
-//   vaultAccounts: {
-//     create: {
-//       data: {
-//         item: {
-//           name: 'Test Vault Account',
-//         }
-//       }
-//     }
-//   },
-//   transactions: {
-//     createSingleTransfer: {
-//       data: {
-//         item: {
-//           // ще попълним когато стигнем до този endpoint
-//         }
-//       }
-//     }
-//   }
-// };
+const payloads = {
+  vaultAccounts: {
+    create: (name) => ({
+      data: {
+        item: {
+          color: '#00C7E6',
+          isHiddenInDashboard: false,
+          name: name
+        }
+      }
+    })
+  }
+};
 
-// module.exports = payloads;
+module.exports = payloads;
