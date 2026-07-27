@@ -65,8 +65,10 @@ test.describe('Vaults API - GET /vaults/{vaultId}/transactions', () => {
       expect(typeof tx.network).toBe('string');
       expect(tx.network.length).toBeGreaterThan(0);
 
+      // 'client-internal' is a real third value: a transfer whose sender and recipient both
+      // belong to the same client never leaves the platform, so it is neither in nor out.
       expect(typeof tx.direction).toBe('string');
-      expect(['incoming', 'outgoing']).toContain(tx.direction);
+      expect(['incoming', 'outgoing', 'client-internal']).toContain(tx.direction);
 
       expect(typeof tx.status).toBe('string');
       expect(tx.status.length).toBeGreaterThan(0);

@@ -97,6 +97,16 @@ test.describe('Vaults API - GET /assets/{assetId}/{blockchain}/vaults/test - Eth
     expect(bodyEthereum).toHaveProperty('data');
   });
 
+  test('data should contain item field', async () => {
+    expect(bodyEthereum.data).toHaveProperty('item');
+  });
+
+  test('item should contain exchangeRateUnit as non-empty string', async () => {
+    expect(bodyEthereum.data.item).toHaveProperty('exchangeRateUnit');
+    expect(typeof bodyEthereum.data.item.exchangeRateUnit).toBe('string');
+    expect(bodyEthereum.data.item.exchangeRateUnit.length).toBeGreaterThan(0);
+  });
+
   test('item should contain vaults as non-empty array', async () => {
     expect(bodyEthereum.data.item).toHaveProperty('vaults');
     expect(Array.isArray(bodyEthereum.data.item.vaults)).toBeTruthy();
@@ -105,12 +115,20 @@ test.describe('Vaults API - GET /assets/{assetId}/{blockchain}/vaults/test - Eth
 
   test('each vault should have required fields with correct types', async () => {
     for (const vault of bodyEthereum.data.item.vaults) {
+      // string fields
       expect(typeof vault.vaultId).toBe('string');
       expect(vault.vaultId.length).toBeGreaterThan(0);
 
       expect(typeof vault.vaultName).toBe('string');
       expect(vault.vaultName.length).toBeGreaterThan(0);
 
+      expect(typeof vault.vaultType).toBe('string');
+      expect(vault.vaultType.length).toBeGreaterThan(0);
+
+      expect(typeof vault.vaultColor).toBe('string');
+      expect(vault.vaultColor.length).toBeGreaterThan(0);
+
+      // amount fields - string representing numbers
       expect(typeof vault.totalAmount).toBe('string');
       expect(isNaN(parseFloat(vault.totalAmount))).toBeFalsy();
 

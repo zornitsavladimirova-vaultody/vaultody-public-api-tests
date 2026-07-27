@@ -10,7 +10,7 @@ const uniqueName = `Test VA ${Date.now()}`;
 
 test.beforeAll(async ({ request }) => {
     await new Promise(resolve => setTimeout(resolve, 1000));
-    const path = endpoints.vaultAccounts.create(testData.vaults.createVaultAccountVaultId);
+    const path = endpoints.vaultAccounts.create(testData.vaults.testVaultId);
     const payload = payloads.vaultAccounts.create(uniqueName);
     const headers = generateHeaders('POST', path, payload);
     response = await request.post(`${CONFIG.baseUrl}${path}`, {
@@ -54,7 +54,9 @@ test.describe('Vault Accounts API - POST /vaults/{vaultId}/vault-account', () =>
     });
 
     test('item should have vaultId equal to the requested vaultId', async () => {
-        expect(body.data.item.vaultId).toBe(testData.vaults.createVaultAccountVaultId);
+        // beforeAll creates the vault account against testVaultId, so that is what the
+        // response must echo back — not createVaultAccountVaultId (a different vault).
+        expect(body.data.item.vaultId).toBe(testData.vaults.testVaultId);
     });
 
     test('item should have vaultAccountColour as non-empty string', async () => {
