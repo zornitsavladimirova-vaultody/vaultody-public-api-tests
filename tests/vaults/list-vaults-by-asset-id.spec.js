@@ -23,12 +23,26 @@ for (const [assetKey, asset] of Object.entries(testData.assets)) {
     let response;
     let body;
 
-    test.beforeAll(async ({ request }) => {
+    test.beforeAll(async ({ request }, testInfo) => {
       await new Promise(resolve => setTimeout(resolve, 1000));
       const path = endpoints.vaults.listByAssetId(asset.assetId, asset.blockchain, NETWORK_TYPE);
       const headers = generateHeaders('GET', path);
-      response = await request.get(`${CONFIG.baseUrl}${path}`, { headers });
+      const url = `${CONFIG.baseUrl}${path}`;
+
+      response = await request.get(url, { headers });
       body = await response.json();
+
+      // Attach request details
+      await testInfo.attach('request', {
+        body: JSON.stringify({ method: 'GET', url, headers }, null, 2),
+        contentType: 'application/json',
+      });
+
+      // Attach response details
+      await testInfo.attach('response', {
+        body: JSON.stringify({ status: response.status(), body }, null, 2),
+        contentType: 'application/json',
+      });
     });
 
     test('should return status 200', async () => {

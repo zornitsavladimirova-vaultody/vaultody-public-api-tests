@@ -48,7 +48,7 @@ tests/
 Run everything:
 
 ```
-npx playwright test --project=api --reporter=list
+npx playwright test --project=api
 ```
 
 Run one section or file:
@@ -63,6 +63,23 @@ List all tests without running:
 ```
 npx playwright test --list
 ```
+
+### Viewing the HTML report
+
+`playwright.config.js` already registers both reporters (`list` + `html` with `open: 'never'`),
+so a plain `npx playwright test …` writes a fresh report to `playwright-report/`. Open it with:
+
+```
+npx playwright show-report
+```
+
+Each test attaches its `request` (URL + auth headers) and `response` (status + full JSON body),
+visible under the **Attachments** tab — that is usually enough to triage a failure without re-running.
+
+> **Gotcha:** passing `--reporter=list` on the command line **replaces** the reporters from the
+> config, so the `html` reporter never runs and `playwright-report/` silently keeps the *previous*
+> run's results — `show-report` then shows stale data with no warning. Omit the flag (the config
+> already prints the list output), or use `--reporter=list,html` if you want it explicit.
 
 ## Destructive transaction tests
 
@@ -85,4 +102,8 @@ RUN_DESTRUCTIVE=true npx playwright test transactions/ --project=api
   `prepareStrategy: minimize_dust|optimize_size`, `method: approve|transfer-from`).
 - Most of these endpoints are still `IN_PROGRESS` in the route store, so some positive
   assertions may legitimately fail until the endpoint is finished — that is useful QA signal.
+- **Skips are expected, not failures.** `tests/vaults` currently reports 217 passed / 6 skipped:
+  the six are the per-vault field assertions for assets no test vault holds (ETC, ethereum
+  USDT/LINK, BSC USDC/BUSD/LINK), where the API correctly returns `200` with an empty `vaults[]`.
+  That count tracks QA fixture holdings, so it shifts when a test vault gains or loses an asset.
 ```
